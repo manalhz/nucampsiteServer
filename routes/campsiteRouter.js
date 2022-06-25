@@ -1,15 +1,15 @@
-const express = require("express");
-const Campsite = require("../models/campsite");
+const express = require('express');
+const Campsite = require('../models/campsite');
 
 const campsiteRouter = express.Router();
 //next() means it will go the next relevant part of the route; or else it would just stop here.
 campsiteRouter
-  .route("/")
+  .route('/')
   .get((req, res, next) => {
     Campsite.find()
       .then((campsites) => {
         res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json");
+        res.setHeader('Content-Type', 'application/json');
         res.json(campsites);
       })
       .catch((err) => next(err));
@@ -18,9 +18,9 @@ campsiteRouter
   .post((req, res, next) => {
     Campsite.create(req.body)
       .then((campsite) => {
-        console.log("Campsite Created ", campsite);
+        console.log('Campsite Created ', campsite);
         res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json");
+        res.setHeader('Content-Type', 'application/json');
         res.json(campsite);
       })
       .catch((err) => next(err));
@@ -28,26 +28,26 @@ campsiteRouter
 
   .put((req, res) => {
     res.statusCode = 403;
-    res.end("PUT operation not supported on /campsites");
+    res.end('PUT operation not supported on /campsites');
   })
 
   .delete((req, res, next) => {
     Campsite.deleteMany()
       .then((response) => {
         res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json");
+        res.setHeader('Content-Type', 'application/json');
         res.json(response);
       })
       .catch((err) => next(err));
   });
 
 campsiteRouter
-  .route("/:campsiteId")
+  .route('/:campsiteId')
   .get((req, res, next) => {
     Campsite.findById(req.params.campsiteId)
       .then((campsite) => {
         res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json");
+        res.setHeader('Content-Type', 'application/json');
         res.json(campsite);
       })
       .catch((err) => next(err));
@@ -70,7 +70,7 @@ campsiteRouter
     )
       .then((campsite) => {
         res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json");
+        res.setHeader('Content-Type', 'application/json');
         res.json(campsite);
       })
       .catch((err) => next(err));
@@ -80,20 +80,20 @@ campsiteRouter
     Campsite.findByIdAndDelete(req.params.campsiteId)
       .then((response) => {
         res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json");
+        res.setHeader('Content-Type', 'application/json');
         res.json(response);
       })
       .catch((err) => next(err));
   });
 
 campsiteRouter
-  .route("/:campsiteId/comments")
+  .route('/:campsiteId/comments')
   .get((req, res, next) => {
     Campsite.findById(req.params.campsiteId)
       .then((campsite) => {
         if (campsite) {
           res.statusCode = 200;
-          res.setHeader("Content-Type", "application/json");
+          res.setHeader('Content-Type', 'application/json');
           res.json(campsite.comments);
         } else {
           err = new Error(`Campsite ${req.params.campsiteId} not found`);
@@ -112,7 +112,7 @@ campsiteRouter
             .save()
             .then((campsite) => {
               res.statusCode = 200;
-              res.setHeader("Content-Type", "application/json");
+              res.setHeader('Content-Type', 'application/json');
               res.json(campsite);
             })
             .catch((err) => next(err));
@@ -143,7 +143,7 @@ campsiteRouter
             .save()
             .then((campsite) => {
               res.statusCode = 200;
-              res.setHeader("Content-Type", "application/json");
+              res.setHeader('Content-Type', 'application/json');
               res.json(campsite);
             })
             .catch((err) => next(err));
@@ -157,13 +157,13 @@ campsiteRouter
   });
 
 campsiteRouter
-  .route("/:campsiteId/comments/:commentId")
+  .route('/:campsiteId/comments/:commentId')
   .get((req, res, next) => {
     Campsite.findById(req.params.campsiteId)
       .then((campsite) => {
         if (campsite && campsite.comments.id(req.params.commentId)) {
           res.statusCode = 200;
-          res.setHeader("Content-Type", "application/json");
+          res.setHeader('Content-Type', 'application/json');
           res.json(campsite.comments.id(req.params.commentId));
         } else if (!campsite) {
           err = new Error(`Campsite ${req.params.campsiteId} not found`);
@@ -197,7 +197,7 @@ campsiteRouter
             .save()
             .then((campsite) => {
               res.statusCode = 200;
-              res.setHeader("Content-Type", "application/json");
+              res.setHeader('Content-Type', 'application/json');
               res.json(campsite);
             })
             .catch((err) => next(err));
@@ -223,7 +223,7 @@ campsiteRouter
             .save()
             .then((campsite) => {
               res.statusCode = 200;
-              res.setHeader("Content-Type", "application/json");
+              res.setHeader('Content-Type', 'application/json');
               res.json(campsite);
             })
             .catch((err) => next(err));

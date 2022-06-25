@@ -1,15 +1,15 @@
-const express = require("express");
-const Partner = require("../models/partner");
+const express = require('express');
+const Partner = require('../models/partner');
 
 const partnerRouter = express.Router();
 
 partnerRouter
-  .route("/")
+  .route('/')
   .get((req, res, next) => {
     Partner.find()
       .then((partners) => {
         res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json");
+        res.setHeader('Content-Type', 'application/json');
         res.json(partners);
       })
       .catch((err) => next(err));
@@ -18,9 +18,9 @@ partnerRouter
   .post((req, res, next) => {
     Partner.create(req.body)
       .then((partner) => {
-        console.log("Partner Created ", partner);
+        console.log('Partner Created ', partner);
         res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json");
+        res.setHeader('Content-Type', 'application/json');
         res.json(partner);
       })
       .catch((err) => next(err));
@@ -28,26 +28,26 @@ partnerRouter
 
   .put((req, res) => {
     res.statusCode = 403;
-    res.end("PUT operation not supported on /partners");
+    res.end('PUT operation not supported on /partners');
   })
 
   .delete((req, res, next) => {
     Partner.deleteMany()
       .then((response) => {
         res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json");
+        res.setHeader('Content-Type', 'application/json');
         res.json(response);
       })
       .catch((err) => next(err));
   });
 
 partnerRouter
-  .route("/:partnerId")
+  .route('/:partnerId')
   .get((req, res, next) => {
     Partner.findById(req.params.partnerId)
       .then((partner) => {
         res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json");
+        res.setHeader('Content-Type', 'application/json');
         res.json(partner);
       })
       .catch((err) => next(err));
@@ -70,7 +70,7 @@ partnerRouter
     )
       .then((partner) => {
         res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json");
+        res.setHeader('Content-Type', 'application/json');
         res.json(partner);
       })
       .catch((err) => next(err));
@@ -80,7 +80,7 @@ partnerRouter
     Partner.findByIdAndDelete(req.params.partnerId)
       .then((response) => {
         res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json");
+        res.setHeader('Content-Type', 'application/json');
         res.json(response);
       })
       .catch((err) => next(err));
