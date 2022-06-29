@@ -6,6 +6,7 @@ const campsiteRouter = express.Router();
 campsiteRouter
   .route('/')
   .get((req, res, next) => {
+    console.log('get campsites');
     Campsite.find()
       .then((campsites) => {
         res.statusCode = 200;
